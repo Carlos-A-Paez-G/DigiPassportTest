@@ -54,6 +54,9 @@ var stampPagesStart = 2; //first page with stamps on it, start counting from 0
 var messageTimer = 0;
 var messageText;
 
+var confettiParticles = [];
+var confettiAmount = 0;
+
 //background animation
 var bgCircles = [];
 var play_bgAnimation = true;
@@ -282,6 +285,9 @@ class Stamp extends Button {
 
   //not priority - creates a cute effect if filled stamp is touched
   flourish() {
+    if(this.obtained && this.pressed()) {
+      createConfetti(this.x + this.w/2 + random(-2,2), this.y + this.h/2 + random(-2,2));
+    }
   }
 
   exist() {
@@ -292,6 +298,7 @@ class Stamp extends Button {
     }
     
     this.displayText();
+    this.flourish();
   }
 }
 
@@ -710,17 +717,21 @@ function draw() {
       // if(quitButton.pressed()) {
       //   gameState = 0;
       // }
-
-      
       break;
 
-    
+    case 10:
+      if(mouseIsClicked) {
+        createConfetti(mouseX, mouseY);
+      }
+      break;
   }
+
+  displayConfetti();
 
   if(messageTimer > 0) {
     messageTimer--;
     resultMessage(messageText);
-    console.log(messageTimer);
+    console.log(messageTimer); 
   }
   mouseIsClicked = false;
 }
@@ -887,6 +898,90 @@ function bgAnimation(playing, bgColor) {
 
   for(var i = 0; i < bgCircles.length; i++) {
     bgCircles[i].exist(playing);
+  }
+}
+
+
+
+// Confetti :))
+class ConfettiPiece {
+  constructor(x, y, dx, dy, a, da, c) {
+    this.x = x;
+    this.y = y;
+    this.dx = dx;
+    this.ddx = 0.99;
+    this.dy = dy;
+    this.ddy = 1;
+    this.maxdy = 1.5;
+    this.c = c;
+    this.w = 10;
+    this.h = 3;
+    this.maxh = 3;
+    this.a = a; //z-axis plain angle
+    this.da = da;
+    this.b = 0; //x-axis plain angle
+    this.db = dy;
+    this.alive = true;
+  }
+
+  display() {
+    push();
+    rectMode(CENTER);
+    noStroke();
+    fill(this.c);
+    translate(this.x, this.y);
+    rotate(this.a);
+    rect(0, 0, this.w, this.h);
+    pop();
+  }
+
+  update() {
+    this.x += this.dx;
+    this.dx *= this.ddx;
+    
+    this.y += this.dy;
+    this.dy += this.ddy;
+    if (this.dy > this.maxdy) this.ddy = this.maxdy;
+
+    this.a += this.da;
+
+    this.h += this.maxh*sin(this.b);
+    if(this.h > this.maxh) this.h = this.maxh;
+    this.b += this.db/10;
+    this.db = this.dy;
+  }
+
+  exist() {
+    this.update();
+    this.display();
+    
+    if(this.y > displayHeight+20) {
+      this.alive = false;
+    }
+
+    console.log(this);
+  }
+}
+
+function createConfetti(x, y) {
+  console.log("creating @ " + x + ", " + y);
+  for(var i = 0; i < 25; i++) {
+    var dx = random(-15, 15);
+    var dy = random(-30, -1);
+    var a = random(6);
+    var da = random(1);
+    var c = color(random(255), random(255), random(255));
+    confettiParticles.push(new ConfettiPiece(x, y, dx, dy, a, da, c));
+  }
+  // confettiAmount = confettiParticles.length();
+}
+
+function displayConfetti() {
+  for(var p in confettiParticles) {
+    confettiParticles[p].exist();
+    if(!confettiParticles[p].alive) {
+      delete confettiParticles[p];
+    }
   }
 }
 
