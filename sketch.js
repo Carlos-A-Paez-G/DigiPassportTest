@@ -364,7 +364,7 @@ class Keypad {
   }
 
   checkAnswer() {
-    if (currentGuess.length < 6) {
+    if (!currentGuess || currentGuess.length < 6) {
       return;
     }
 
@@ -633,28 +633,27 @@ function preload() {
   stampImages[26] = loadImage('assets/Flags/Morocco.png');
   stampImages[27] = loadImage('assets/Flags/Netherlands.png');
   stampImages[28] = loadImage('assets/Flags/New Zealand.png');
-  stampImages[29] = loadImage('assets/Flags/Palestine.png');
-  stampImages[30] = loadImage('assets/Flags/Pakistan.png');
+  stampImages[29] = loadImage('assets/Flags/Pakistan.png');
+  stampImages[30] = loadImage('assets/Flags/Palestine.png');
   stampImages[31] = loadImage('assets/Flags/Panama.png');
   stampImages[32] = loadImage('assets/Flags/Philippines.png');
   stampImages[33] = loadImage('assets/Flags/Poland.png');
   stampImages[34] = loadImage('assets/Flags/Portugal.png');
-  stampImages[35] = loadImage('assets/Flags/Saudi Arabia.png');
-  stampImages[36] = loadImage('assets/Flags/Serbia.png');
-  stampImages[37] = loadImage('assets/Flags/Singapore.png');
-  stampImages[38] = loadImage('assets/Flags/Slovak Republic.png');
-  stampImages[39] = loadImage('assets/Flags/South Africa.png');
-  stampImages[40] = loadImage('assets/Flags/Spain.png');
-  stampImages[41] = loadImage('assets/Flags/Sweden.png');
-  stampImages[42] = loadImage('assets/Flags/Thailand.png');
-  stampImages[43] = loadImage('assets/Flags/Trinidad & Tobago.png');
-  stampImages[44] = loadImage('assets/Flags/Türkiye.png');
-  stampImages[45] = loadImage('assets/Flags/UAE.png');
-  stampImages[46] = loadImage('assets/Flags/UK.png');
-  stampImages[47] = loadImage('assets/Flags/Ukraine.png');
-  stampImages[48] = loadImage('assets/Flags/USA.png');
-  stampImages[49] = loadImage('assets/Flags/Venezuela.png');
-  stampImages[50] = loadImage('assets/Flags/Yemen.png');
+  stampImages[35] = loadImage('assets/Flags/Serbia.png');
+  stampImages[36] = loadImage('assets/Flags/Singapore.png');
+  stampImages[37] = loadImage('assets/Flags/Slovak Republic.png');
+  stampImages[38] = loadImage('assets/Flags/South Africa.png');
+  stampImages[39] = loadImage('assets/Flags/Spain.png');
+  stampImages[40] = loadImage('assets/Flags/Sweden.png');
+  stampImages[41] = loadImage('assets/Flags/Thailand.png');
+  stampImages[42] = loadImage('assets/Flags/Trinidad and Tobago.png');
+  stampImages[43] = loadImage('assets/Flags/Türkiye.png');
+  stampImages[44] = loadImage('assets/Flags/UAE.png');
+  stampImages[45] = loadImage('assets/Flags/UK.png');
+  stampImages[46] = loadImage('assets/Flags/Ukraine.png');
+  stampImages[47] = loadImage('assets/Flags/USA.png');
+  stampImages[48] = loadImage('assets/Flags/Venezuela.png');
+  stampImages[49] = loadImage('assets/Flags/Yemen.png');
 
 }
 
